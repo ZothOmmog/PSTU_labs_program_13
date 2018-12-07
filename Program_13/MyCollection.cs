@@ -12,8 +12,10 @@ namespace Program_13
 {
     class MyCollection : ICollection<TranspSredstv>
     {
-        TranspSredstv[] arr;
-        public int Count { get; private set; } //Кол-во элементов
+        
+
+        protected TranspSredstv[] arr;
+        public int Count { get; protected set; } //Кол-во элементов
         public int Capasity { get { return arr.Length; } } //Макс. кол-во элементов
 
         public bool IsReadOnly => throw new NotImplementedException();
@@ -31,25 +33,15 @@ namespace Program_13
             for (int i = 0; i < Count; i++) this.Add(RandElem.Rand());
         }
 
-        //Индексатор
-        public TranspSredstv this[int index]
-        {
-            get
-            {
-                index = ExceptionHandlingArray.TestIndex(index, Count);
-                return arr[index];
-            }
-            set
-            {
-                index = ExceptionHandlingArray.TestIndex(index, Count);
-                arr[index] = value;
-            }
-        }
+        
 
         //Добавление элемента в конец
-        public void Add(TranspSredstv item)
+        public virtual void Add(TranspSredstv item)
         {
-            if (Count < Capasity) arr[Count] = item;
+            if (Count < Capasity)
+            {
+                arr[Count] = item;
+            }
             else
             {
                 Resize();
@@ -59,7 +51,7 @@ namespace Program_13
         }
 
         //Увеличение максимального размера коллекции
-        private void Resize()
+        protected void Resize()
         {
             int NewCapasity = Capasity * 2;
             TranspSredstv[] buf_arr = new TranspSredstv[NewCapasity];
@@ -121,18 +113,7 @@ namespace Program_13
             return flag;
         }
 
-        //Удаление элемента по идексу
-        public void RemoveAt(int index)
-        {
-            TranspSredstv[] buf = new TranspSredstv[Capasity];
-            for (int i = 0, j = 0; i < Count; i++)
-            {
-                if (i == index) continue;
-                buf[j] = arr[i];
-                j++;
-            }
-            Count--;
-        }
+        
 
         //Печать коллекции
         public void Show()
