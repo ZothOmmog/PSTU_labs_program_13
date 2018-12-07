@@ -10,7 +10,7 @@ namespace Program_13
     {
         static void Main(string[] args)
         {
-            //Комментарий на русском языке
+            
         }
     }
 }
