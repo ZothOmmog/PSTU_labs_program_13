@@ -10,7 +10,9 @@ namespace Program_13
     {
         static void Main(string[] args)
         {
-            
+            MyCollection collection = new MyCollection(100);
+            collection.Contains(RandElem.Rand());
+            collection.Show();
         }
     }
 }
