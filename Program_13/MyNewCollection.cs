@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace Program_13
 {
-    class Program
+    class MyNewCollection : MyCollection
     {
 
-        static void Main(string[] args)
-        {
-
-        }
     }
 }

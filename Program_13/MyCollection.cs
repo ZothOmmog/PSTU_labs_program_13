@@ -49,7 +49,7 @@ namespace Program_13
         //Добавление элемента в конец
         public void Add(TranspSredstv item)
         {
-            if(Count < Capasity) arr[Count] = item;
+            if (Count < Capasity) arr[Count] = item;
             else
             {
                 Resize();
@@ -77,20 +77,26 @@ namespace Program_13
         //Проверка, есть ли этот элемент в коллекции
         public bool Contains(TranspSredstv item)
         {
-            for(int i = 0; i < Count; i++) if (arr[i] == item) return true;
+            foreach (TranspSredstv i in arr) if (i == item) return true;
             return false;
         }
 
         //Копирование элементов коллекции в соответствующий масссив
         public void CopyTo(TranspSredstv[] array, int arrayIndex)
         {
-            for(int i = 0; i < Count; i++)
+            for (int i = 0; i < Count; i++)
             {
                 array[i] = arr[i];
             }
         }
 
+        //Для foreach
         public IEnumerator<TranspSredstv> GetEnumerator()
+        {
+            for (int i = 0; i < Count; i++) yield return arr[i];
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
         {
             throw new NotImplementedException();
         }
@@ -100,7 +106,7 @@ namespace Program_13
         {
             bool flag = false;
             TranspSredstv[] buf = new TranspSredstv[Capasity];
-            for(int i = 0, j = 0; i < Count; i++)
+            for (int i = 0, j = 0; i < Count; i++)
             {
                 if (arr[i] == item && !flag)
                 {
@@ -128,17 +134,19 @@ namespace Program_13
             Count--;
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
+        //Печать коллекции
         public void Show()
         {
-            for(int i = 0; i < Count; i++)
+            for (int i = 0; i < Count; i++)
             {
                 Console.WriteLine("{0}. {1}", i + 1, arr[i]);
             }
+        }
+
+        //Неявное преобразование в массив
+        public static implicit operator TranspSredstv[](MyCollection collection)
+        {
+            return collection.arr;
         }
     }
 }

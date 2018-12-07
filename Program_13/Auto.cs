@@ -44,11 +44,5 @@ namespace Program_13
         {
             Console.Write(this.ToString());
         }
-
-        public void Show1()
-        {
-            Console.Write("Тип: {0,-20}\tКол-во пассажиров: {1,-3}\tФамилия водителя: {2,-10}\tДетское кресло: {3}",
-                                            Obj, Kol_pas, Name_vod, detsk_kresl);
-        }
     }
 }

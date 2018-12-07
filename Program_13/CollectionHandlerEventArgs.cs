@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace Program_13
 {
-    class Program
+    delegate CollectionHandler(object source, CollectionHandlerEventArgs args);
+    class CollectionHandlerEventArgs : System.EventArgs
     {
 
-        static void Main(string[] args)
-        {
-
-        }
     }
 }

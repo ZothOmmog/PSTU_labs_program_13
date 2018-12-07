@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Program_13
 {
-    class TranspSredstv
+    class TranspSredstv :IComparable<TranspSredstv>
     {
         //Автосвойство
         public int Kol_pas { get; set; }
@@ -45,6 +45,12 @@ namespace Program_13
         {
             Console.Write("Тип: {0,-20}\tКол-во пассажиров: {1,-3}\tФамилия водителя: {2,-10}",
                                 Obj, Kol_pas, Name_vod);
+        }
+
+        //Сортировка по кол-ву пассажиров
+        public int CompareTo(TranspSredstv other)
+        {
+            return this.Kol_pas.CompareTo(other.Kol_pas);
         }
     }
 }

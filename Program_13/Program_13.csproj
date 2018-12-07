@@ -49,8 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Auto.cs" />
+    <Compile Include="CollectionHandlerEventArgs.cs" />
     <Compile Include="Express.cs" />
     <Compile Include="MyCollection.cs" />
+    <Compile Include="MyNewCollection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rand.cs" />
