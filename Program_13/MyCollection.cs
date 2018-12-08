@@ -29,6 +29,7 @@ namespace Program_13
         //Заполнение коллекции рандомными элементами
         public MyCollection(int Count)
         {
+            Count = ExceptionHandlingArray.TestSize(Count);
             arr = new TranspSredstv[Count];
             for (int i = 0; i < Count; i++) this.Add(RandElem.Rand());
         }
@@ -36,7 +37,7 @@ namespace Program_13
         
 
         //Добавление элемента в конец
-        public virtual void Add(TranspSredstv item)
+        public void Add(TranspSredstv item)
         {
             if (Count < Capasity)
             {
@@ -53,7 +54,9 @@ namespace Program_13
         //Увеличение максимального размера коллекции
         protected void Resize()
         {
-            int NewCapasity = Capasity * 2;
+            int NewCapasity;
+            if(Capasity == 0) NewCapasity = 4;
+            else NewCapasity = Capasity * 2;
             TranspSredstv[] buf_arr = new TranspSredstv[NewCapasity];
             arr.CopyTo(buf_arr, 0);
             arr = buf_arr;
@@ -68,8 +71,9 @@ namespace Program_13
 
         //Проверка, есть ли этот элемент в коллекции
         public bool Contains(TranspSredstv item)
+
         {
-            foreach (TranspSredstv i in arr) if (i == item) return true;
+            for(int i = 0; i < Count; i++) if (arr[i] == item) return true;
             return false;
         }
 
@@ -113,8 +117,6 @@ namespace Program_13
             return flag;
         }
 
-        
-
         //Печать коллекции
         public void Show()
         {
@@ -122,12 +124,6 @@ namespace Program_13
             {
                 Console.WriteLine("{0}. {1}", i + 1, arr[i]);
             }
-        }
-
-        //Неявное преобразование в массив
-        public static implicit operator TranspSredstv[](MyCollection collection)
-        {
-            return collection.arr;
         }
     }
 }

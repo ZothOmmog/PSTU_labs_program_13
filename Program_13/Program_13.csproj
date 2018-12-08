@@ -51,7 +51,8 @@
     <Compile Include="Auto.cs" />
     <Compile Include="CollectionHandlerEventArgs.cs" />
     <Compile Include="Express.cs" />
-    <Compile Include="Interface1.cs" />
+    <Compile Include="Journal.cs" />
+    <Compile Include="JournalEntry.cs" />
     <Compile Include="MyCollection.cs" />
     <Compile Include="MyNewCollection.cs" />
     <Compile Include="Program.cs" />
@@ -63,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

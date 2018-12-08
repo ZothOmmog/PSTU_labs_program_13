@@ -9,14 +9,19 @@ using ArrayExceptionHandling;
 
 namespace Program_13
 {
-    delegate void CollectionHandler(MyNewCollection source, CollectionHandlerEventArgs args);
-
+    //public delegate void CollectionHandler(object source, CollectionHandlerEventArgs args);
+    //Класс-издатель, который гинерирует 2 события
     class MyNewCollection : MyCollection
     {
-        event CollectionHandler CollectionCountChenged; //При изменении кол-ва элементов
-        event CollectionHandler CollectionReferensCenged; //При изменении элемента
+        public event EventHandler<CollectionHandlerEventArgs> CollectionCountChenged; //При изменении кол-ва элементов
+        public event EventHandler<CollectionHandlerEventArgs> CollectionReferensCenged; //При изменении элемента
 
         string NameCollection { get; set; }
+
+        public MyNewCollection(string NameCollection, int Count) : base(Count)
+        {
+            this.NameCollection = NameCollection;
+        }
 
         //Индексатор
         public TranspSredstv this[int index]
@@ -30,36 +35,27 @@ namespace Program_13
             {
                 index = ExceptionHandlingArray.TestIndex(index, Count);
                 arr[index] = value;
-                CollectionReferensCenged(this, new CollectionHandlerEventArgs(NameCollection,
-                String.Format("Изменен элемент коллекции с индексом {0}.", index), arr[index]));
+                CollectionReferensCenged?.Invoke(this, new CollectionHandlerEventArgs(NameCollection,
+                                                   String.Format("Изменен элемент коллекции с индексом {0}.", index + 1), arr[index]));
             }
         }
 
         //Добавление элемента в конец
-        public override void Add(TranspSredstv item)
+        public void Add()
         {
+            TranspSredstv item = RandElem.Rand();
             if (Count < Capasity)
             {
                 arr[Count] = item;
-                CollectionCountChenged(this, new CollectionHandlerEventArgs(NameCollection, "Добавление 1 элемента в конец массива.", arr[Count]));
+                CollectionCountChenged?.Invoke(this, new CollectionHandlerEventArgs(NameCollection, "Добавление 1 элемента в конец коллекции.", arr[Count]));
             }
             else
             {
                 Resize();
                 arr[Count] = item;
+                CollectionCountChenged?.Invoke(this, new CollectionHandlerEventArgs(NameCollection, "Добавление 1 элемента в конец коллекции.", arr[Count]));
             }
             Count++;
-        }
-
-        //Добавление нескольких элементов в конец массива
-        public void AddNew(TranspSredstv[] item)
-        {
-            for(int i = Count; i < Capasity + item.Length; i++)
-            {
-                this.Add(RandElem.Rand());
-            }
-            CollectionCountChenged(this, new CollectionHandlerEventArgs(NameCollection, 
-                String.Format("Добавление {0} элементов в конец массива.",item.Length), arr[Count]));
         }
 
         //Удаление элемента по идексу
@@ -68,20 +64,20 @@ namespace Program_13
             if (index > 0 && index < Count)
             {
                 TranspSredstv[] buf = new TranspSredstv[Capasity];
+                TranspSredstv del_elem = arr[index - 1];
                 for (int i = 0, j = 0; i < Count; i++)
                 {
-                    if (i == index) continue;
+                    if (i == index - 1) continue;
                     buf[j] = arr[i];
                     j++;
                 }
                 Count--;
-                CollectionCountChenged(this, new CollectionHandlerEventArgs(NameCollection,
-                String.Format("Удаление из коллекции элемента с индексом {0}.", index), arr[index]));
+                arr = buf;
+                CollectionCountChenged?.Invoke(this, new CollectionHandlerEventArgs(NameCollection,
+                String.Format("Удаление из коллекции элемента с индексом {0}.", index), del_elem));
                 return true;
             }
             else return false;
         }
-
-
     }
 }

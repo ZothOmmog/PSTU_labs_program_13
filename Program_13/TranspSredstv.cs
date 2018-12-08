@@ -50,7 +50,7 @@ namespace Program_13
         //Сортировка по кол-ву пассажиров
         public int CompareTo(TranspSredstv other)
         {
-            return this.Kol_pas.CompareTo(other.Kol_pas);
+            return Kol_pas.CompareTo(other.Kol_pas);
         }
     }
 }
